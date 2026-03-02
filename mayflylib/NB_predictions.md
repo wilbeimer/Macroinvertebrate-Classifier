@@ -9,4 +9,4 @@ _NB_predictions_\
 `predictions` : An np.array of shape `(n,x*y)` matrix of prediction for all subimages.\
 `shape` : the tuple `(x,y)`.\
 **Description:**\
-`NB_predictions` is used to convert a np.array of full images into a np.array of sub-images with corresponding labels where the model predicted empty space. 
+`NB_predictions` is used to convert a np.array of full images into a np.array of sub-images with corresponding labels where the model predicted empty space. \
