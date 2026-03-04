@@ -4,5 +4,5 @@ An interdisciplinary project at Shenandoah University combining Computer Science
 
 ## Modules
 
-- [mayflylib](docs/mayflylib/mayflylib.md) — image chunking, feature extraction, NB prediction utilities
-- [mayfly_internal](docs/mayfly_internal/mayfly_internal.md) — batch prediction pipeline, labeling, visualization
+- [mayflylib](docs/mayflylib.md) — image chunking, feature extraction, NB prediction utilities
+- [mayfly_internal](docs/mayfly_internal.md) — batch prediction pipeline, labeling, visualization
