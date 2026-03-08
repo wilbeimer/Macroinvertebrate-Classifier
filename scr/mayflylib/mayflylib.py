@@ -19,7 +19,7 @@ import PIL.Image as Image
 from pathlib import Path
 import random
 from sklearn.metrics import roc_curve, auc
-import mayfly_internal as mai
+import scr.mayfly_internal as mai
 
 def hand_labeling(): 
     pass
