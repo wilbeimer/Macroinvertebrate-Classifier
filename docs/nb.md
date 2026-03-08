@@ -1,4 +1,4 @@
-# mayfly_internal
+# NB Functions
 
 - [NB\_predictions](#nb_predictions)
 - [label\_imageset](#label_imageset)

@@ -1,4 +1,4 @@
-# mayflylib
+# NB Helper Functions 
 
 - [get\_slices](#get_slices)
 - [grey\_if\_true](#grey_if_true)
@@ -12,8 +12,6 @@
 ---
 
 ## get_slices
-
-*mayfly_internal*
 
 **Arguments:**
 - `rgb` : the original full image
