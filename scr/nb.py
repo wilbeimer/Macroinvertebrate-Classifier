@@ -4,9 +4,31 @@ from tqdm import tqdm
 import nb_helper_functions as nb
 
 
-def hand_labeling():
-    pass
+def hand_labeling(NpArray):
+    labels = [None] * len(NpArray)
+    i = 0
 
+    while i < len(NpArray):
+        plt.axis("off")
+        plt.imshow(NpArray[i])
+        plt.show()
+
+        user_input = input(f"[{i+1}] Is this empty? (y= yes, n= no, b=back, c=exit): ").lower()
+
+        plt.clf()
+        if (user_input) == 'y' or user_input == 'n':
+            labels[i] = 1 if user_input == 'y' else 0
+            i += 1
+        elif (user_input) == 'b':
+            if i > 0:
+                i-=1
+            else:
+                print("You are already at the first image")
+        elif user_input == 'c':
+            break
+        else:
+            print("Please give a proper input: (y= yes, n= no, b=back, c=exit): ")
+    return labels[:i]
 
 def write_non_empty():
     pass
