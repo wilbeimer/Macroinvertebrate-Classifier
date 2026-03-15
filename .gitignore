@@ -211,3 +211,8 @@ __marimo__/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Prevent adding large files
+*.npy
+*.npz
+*.raw
