@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
-import nb_helper_functions as nb
+import scr.nb_helper_functions as nb
 
 
 def hand_labeling(NpArray):
