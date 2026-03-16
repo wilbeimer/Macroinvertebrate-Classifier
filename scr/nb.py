@@ -4,7 +4,27 @@ from tqdm import tqdm
 import scr.nb_helper_functions as nb
 
 
-def hand_labeling(NpArray):
+def hand_labeling(NpArray: np.ndarray) -> list[int]:
+    """
+    Interactively label an array of images as empty or non-empty.
+
+    Displays each image one at a time and prompts the user to label it.
+    Supports navigating back to previous images and early exit.
+
+    Args:
+        NpArray (np.ndarray): Array of images to label, shape (N, H, W, 3).
+
+    Returns:
+        list[int]: Labels for each reviewed image. 1 = empty, 0 = non-empty.
+                   May be shorter than NpArray if user exits early.
+
+    Controls:
+        y - label as empty
+        n - label as non-empty
+        b - go back to previous image
+        c - exit early
+    """
+    
     labels = [None] * len(NpArray)
     i = 0
 
@@ -42,7 +62,25 @@ def image_summary():
     pass
 
 
-def NB_predictions(images, model, slice_factor):
+def NB_predictions(images: np.ndarray, model, slice_factor: int) -> tuple[np.ndarray, np.ndarray, tuple[int, int]]:
+    """
+    Run Naive Bayes predictions on a set of images by chunking each one.
+
+    Breaks each image into subimages using the given slice factor, runs the
+    model on each chunk, and stacks the results.
+
+    Args:
+        images (np.ndarray): Array of images, shape (N, H, W, 3).
+        model: Trained scikit-learn Naive Bayes model.
+        slice_factor (int): Factor by which to downsample images before chunking.
+
+    Returns:
+        tuple:
+            subimages (np.ndarray): All chunks, shape (N, n_chunks, 224, 224, 3).
+            predictions (np.ndarray): Model predictions per chunk, shape (N, n_chunks).
+            shape (tuple): Grid dimensions (n_vertical, n_horizontal).
+    """
+    
     subimage_list = []
     prediction_list = []
 
@@ -55,10 +93,29 @@ def NB_predictions(images, model, slice_factor):
     return subimages, predictions, shape
 
 
-# HAND LABELING IMAGES FUNCTION
-def label_imageset(images, predictions, shape):
-    # Get a list of images to review
-    # Get the original indexes of the images so that adjusted labels can be updated.
+def label_imageset(images: np.ndarray, predictions: np.ndarray, shape: tuple[int, int]) -> np.ndarray:
+    """
+    Interactively review and correct model predictions on a set of images.
+
+    Filters chunks predicted as non-empty (1) and presents them for human
+    review. After labeling, displays the full prediction grid for each image
+    and asks the user if any need relabeling. Recursively relabels low quality
+    images until the user is satisfied.
+
+    Args:
+        images (np.ndarray): Array of chunked images, shape (N, n_chunks, 224, 224, 3).
+        predictions (np.ndarray): Model predictions per chunk, shape (N, n_chunks).
+        shape (tuple[int, int]): Grid dimensions (n_vertical, n_horizontal).
+
+    Returns:
+        np.ndarray: Updated predictions after human review, shape (N, n_chunks).
+
+    Controls:
+        y - label as empty
+        n - label as non-empty
+        b - go back to previous image
+        c - exit early
+    """
 
     photo_indexed_review_list = [images[i][np.where(predictions[i] == 1)] for i in range(images.shape[0])]
     review_list = np.concatenate(photo_indexed_review_list, axis=0)
@@ -136,7 +193,23 @@ def label_imageset(images, predictions, shape):
     return predictions
 
 
-def visualize_predictions(subimages, predictions, shape):
+def visualize_predictions(subimages: np.ndarray, predictions: np.ndarray, shape: tuple[int, int]) -> np.ndarray:
+    """
+    Visualize model predictions by greying out empty chunks on the full image.
+
+    Reshapes chunks back into a grid, greys out chunks predicted as empty,
+    and stitches them back into a single full image.
+
+    Args:
+        subimages (np.ndarray): Array of image chunks, shape (n_chunks, 224, 224, 3).
+        predictions (np.ndarray): Model predictions per chunk, shape (n_chunks,).
+        shape (tuple[int, int]): Grid dimensions (n_vertical, n_horizontal).
+
+    Returns:
+        np.ndarray: Full reconstructed image with empty chunks greyed out,
+                    shape (n_vertical * 224, n_horizontal * 224, 3).
+    """
+    
     subimages = subimages.reshape(shape[0], shape[1], 224, 224, 3)
     predictions = predictions.reshape(shape[0], shape[1])
     k = 0
