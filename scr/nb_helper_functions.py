@@ -1,15 +1,11 @@
 import numpy as np
 import itertools
 
-""" THESE FUNCTIONS ARE NOT TO BE CALLED WHEN TRAINING MODELS """
-
-#   - Call the functions in mayflylib.py
-
 
 def NB_pred_single(image, model, slice_factor):
-    subimages = to_chunks(image, slice_factor)
+    subimages, (v, h) = to_chunks(image, slice_factor)
     predictions = NB_predict_on_images(model, subimages)
-    return (subimages, predictions, (len(vertical_slices)-1, len(horizontal_slices) -1))
+    return (subimages, predictions, (v-1, h-1))
 
 
 def to_chunks(image, slice_factor):
