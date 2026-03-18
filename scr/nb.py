@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 import scr.nb_helper_functions as nb
+from IPython.display import clear_output
 
 
 def hand_labeling(NpArray: np.ndarray) -> list[int]:
@@ -80,7 +81,6 @@ def NB_predictions(images: np.ndarray, model, slice_factor: int) -> tuple[np.nda
             predictions (np.ndarray): Model predictions per chunk, shape (N, n_chunks).
             shape (tuple): Grid dimensions (n_vertical, n_horizontal).
     """
-    
     subimage_list = []
     prediction_list = []
 
@@ -93,7 +93,7 @@ def NB_predictions(images: np.ndarray, model, slice_factor: int) -> tuple[np.nda
     return subimages, predictions, shape
 
 
-def label_imageset(images: np.ndarray, predictions: np.ndarray, shape: tuple[int, int]) -> np.ndarray:
+def adjust_nb_predictions(images: np.ndarray, predictions: np.ndarray, shape: tuple[int, int]) -> np.ndarray:
     """
     Interactively review and correct model predictions on a set of images.
 

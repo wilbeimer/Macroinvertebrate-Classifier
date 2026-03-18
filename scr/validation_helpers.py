@@ -22,7 +22,7 @@ def get_train_sample(n: int = 5, save: bool = False):
     data = load_dataset("shenandoah-macroinvertebrates/ept-bioassessment-dataset", token=os.getenv("HF_TOKEN"), split="train")
     data = data.with_format("numpy")
 
-    indices = np.random.choice(len(data), size=n, replace=False).tolist()
+    indices = np.random.choice(len(data), size=n, replace=False).tolist()    
     sample = data.select(indices)
 
     # Optionally save to disk
@@ -33,7 +33,7 @@ def get_train_sample(n: int = 5, save: bool = False):
 
 def get_single_image():
     sample = get_train_sample(n=1)
-    return sample[0]["image"]
+    return sample
 
 
 def get_nb_model():
