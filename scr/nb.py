@@ -188,7 +188,7 @@ def adjust_nb_predictions(images: np.ndarray, predictions: np.ndarray, shape: tu
 
     low_quality_indexes = np.where(label_quality == 1)
     if low_quality_indexes[0].shape[0] > 0:
-        relabeled = label_imageset(images[low_quality_indexes], predictions[low_quality_indexes], shape)
+        relabeled = adjust_nb_predictions(images[low_quality_indexes], predictions[low_quality_indexes], shape)
         predictions[low_quality_indexes] = relabeled
     return predictions
 
