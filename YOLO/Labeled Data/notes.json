@@ -1,0 +1,25 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Cadisfly"
+    },
+    {
+      "id": 1,
+      "name": "Mayfly"
+    },
+    {
+      "id": 2,
+      "name": "Other"
+    },
+    {
+      "id": 3,
+      "name": "Stonefly"
+    }
+  ],
+  "info": {
+    "year": 2026,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
