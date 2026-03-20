@@ -1,0 +1,12 @@
+path: Labeled Data/data
+train: autosplit_train.txt
+val: autosplit_val.txt
+test: autosplit_test.txt
+
+names:
+    0 : Caddisfly
+    1 : Mayfly
+    2 : Other
+    3 : Stonefly
+    
+    
